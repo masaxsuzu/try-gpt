@@ -50,4 +50,20 @@ public class TestCalculator
         Calculator calculator = new Calculator();
         Assert.Throws<ArgumentException>(() => calculator.Eval("1+2+"));
     }
+
+    [Fact]
+    public void Eval_OperatorPrecedence_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("2+3*4");
+        Assert.Equal(14, result);
+    }
+
+    [Fact]
+    public void Eval_Parentheses_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("(2+3)*4");
+        Assert.Equal(20, result);
+    }
 }

@@ -153,3 +153,81 @@ public class CalculatorTest
 このテストでは、Addition、Subtraction、Multiplication、Divisionの各演算が正常に実行されることを確認しています。また、空の式がEvalメソッドに渡された場合や、無効な式が渡された場合に例外がスローされることを確認しています。
 
 ```
+
+## Iteration #4
+
+```
+Q:
+四則演算の優先順位に関するテストを追加してください。
+A:
+以下は、四則演算の優先順位に関するテストを追加した例です。
+
+using Xunit;
+
+public class CalculatorTest
+{
+    [Fact]
+    public void Eval_Addition_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("1+2");
+        Assert.Equal(3, result);
+    }
+
+    [Fact]
+    public void Eval_Subtraction_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("5-2");
+        Assert.Equal(3, result);
+    }
+
+    [Fact]
+    public void Eval_Multiplication_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("3*4");
+        Assert.Equal(12, result);
+    }
+
+    [Fact]
+    public void Eval_Division_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("10/5");
+        Assert.Equal(2, result);
+    }
+
+    [Fact]
+    public void Eval_EmptyExpression_ExceptionThrown()
+    {
+        Calculator calculator = new Calculator();
+        Assert.Throws<ArgumentException>(() => calculator.Eval(""));
+    }
+
+    [Fact]
+    public void Eval_InvalidExpression_ExceptionThrown()
+    {
+        Calculator calculator = new Calculator();
+        Assert.Throws<ArgumentException>(() => calculator.Eval("1+2+"));
+    }
+
+    [Fact]
+    public void Eval_OperatorPrecedence_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("2+3*4");
+        Assert.Equal(14, result);
+    }
+
+    [Fact]
+    public void Eval_Parentheses_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("(2+3)*4");
+        Assert.Equal(20, result);
+    }
+}
+
+このテストでは、OperatorPrecedenceとParenthesesの2つのテストを追加しています。OperatorPrecedenceテストでは、乗算が加算よりも優先されることを確認しています。Parenthesesテストでは、括弧が四則演算の優先順位を変更できることを確認しています。
+```

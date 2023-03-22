@@ -1,28 +1,23 @@
 ﻿namespace TryGpt;
 public class Calculator
 {
-    public int Add(int x, int y)
+    public int Eval(string expression)
     {
-        return x + y;
-    }
-
-    public int Subtract(int x, int y)
-    {
-        return x - y;
-    }
-
-    public int Multiply(int x, int y)
-    {
-        return x * y;
-    }
-
-    public int Divide(int x, int y)
-    {
-        if (y == 0)
+        int result = 0;
+        if (string.IsNullOrEmpty(expression))
         {
-            throw new DivideByZeroException();
+            throw new ArgumentException("式が空です。");
         }
 
-        return x / y;
+        try
+        {
+            result = (int)new DataTable().Compute(expression, null);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("式の評価に失敗しました。", ex);
+        }
+
+        return result;
     }
 }

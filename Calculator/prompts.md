@@ -51,3 +51,43 @@ class Calculator
 
 このようなクラスを定義することで、四則演算を実行するプログラムを実装することができます。
 ```
+
+## Iteration #2
+```
+Q:
+Add、Subtract、Multiply、Divideの4つのメソッドを定義するのではなくて、
+public int Eval(string expression)というメソッドを一つだけ定義してください。
+A:
+ありがとうございます。その場合、以下のようにクラスを定義することができます。
+
+class Calculator
+{
+    public int Eval(string expression)
+    {
+        int result = 0;
+        if (string.IsNullOrEmpty(expression))
+        {
+            throw new ArgumentException("式が空です。");
+        }
+
+        try
+        {
+            result = (int)new DataTable().Compute(expression, null);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("式の評価に失敗しました。", ex);
+        }
+
+        return result;
+    }
+}
+
+
+このクラスでは、Evalメソッドを定義しています。このメソッドは、数式を表す文字列を受け取り、その結果を整数値で返します。数式の評価には、.NET Frameworkに含まれるDataTableクラスのComputeメソッドを使用しています。
+
+Evalメソッドは、式が空である場合にArgumentExceptionをスローし、式の評価に失敗した場合にはArgumentExceptionをスローします。式の評価に失敗した場合には、例外の詳細を引き継いで新しい例外をスローします。
+
+このように定義することで、Add、Subtract、Multiply、Divideの4つのメソッドを定義する必要がなく、Evalメソッドで与えられた数式を評価することができます。
+
+```

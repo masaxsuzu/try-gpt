@@ -1,6 +1,6 @@
 ﻿namespace TryGpt;
 
-using System.Data;
+using System.Text;
 
 public class Calculator
 {

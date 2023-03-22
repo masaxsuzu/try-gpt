@@ -1,4 +1,7 @@
 ﻿namespace TryGpt;
+
+using System.Data;
+
 public class Calculator
 {
     public int Eval(string expression)

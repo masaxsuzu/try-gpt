@@ -675,3 +675,57 @@ public class TestCalculator
 
 全体的には、テストメソッドの内容に変更はありませんが、メソッド名が変更されているものや、引数の表現が変更されたものがあります。
 ```
+
+##　Iteration #10
+
+```
+Q:
+Tokenizeメソッドのついて少数点が考慮されていないです。修正してください。
+
+A:
+以下が修正済みのTokenizeメソッドになります。
+
+private string[] Tokenize(string expression)
+{
+    List<string> tokens = new List<string>();
+    StringBuilder buffer = new StringBuilder();
+
+    foreach (char c in expression)
+    {
+        if (Char.IsDigit(c) || c == '.')
+        {
+            buffer.Append(c);
+        }
+        else if (Operators.Contains(c))
+        {
+            if (buffer.Length > 0)
+            {
+                tokens.Add(buffer.ToString());
+                buffer.Clear();
+            }
+
+            tokens.Add(c.ToString());
+        }
+        else if (c == '(' || c == ')')
+        {
+            if (buffer.Length > 0)
+            {
+                tokens.Add(buffer.ToString());
+                buffer.Clear();
+            }
+
+            tokens.Add(c.ToString());
+        }
+    }
+
+    if (buffer.Length > 0)
+    {
+        tokens.Add(buffer.ToString());
+    }
+
+    return tokens.ToArray();
+}
+
+
+修正点は、Char.IsDigitメソッドのみでなく、小数点を表す'.'にも対応するために条件文を if (Char.IsDigit(c) || c == '.') として追加しています。これにより、小数点を含む数値を正しくTokenizeすることができます。
+```

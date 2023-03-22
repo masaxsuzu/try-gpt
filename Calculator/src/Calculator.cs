@@ -30,7 +30,7 @@ public class Calculator
 
         foreach (char c in expression)
         {
-            if (Char.IsDigit(c))
+            if (Char.IsDigit(c) || c == '.')
             {
                 buffer.Append(c);
             }
@@ -63,6 +63,7 @@ public class Calculator
 
         return tokens.ToArray();
     }
+
 
     private double Evaluate(string[] tokens)
     {

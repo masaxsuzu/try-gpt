@@ -9,7 +9,7 @@ public class TestCalculator
     public void Eval_Addition_Success()
     {
         Calculator calculator = new Calculator();
-        int result = calculator.Eval("1+2");
+        var result = calculator.Eval("1+2");
         Assert.Equal(3, result);
     }
 
@@ -17,7 +17,7 @@ public class TestCalculator
     public void Eval_Subtraction_Success()
     {
         Calculator calculator = new Calculator();
-        int result = calculator.Eval("5-2");
+        var result = calculator.Eval("5-2");
         Assert.Equal(3, result);
     }
 
@@ -25,7 +25,7 @@ public class TestCalculator
     public void Eval_Multiplication_Success()
     {
         Calculator calculator = new Calculator();
-        int result = calculator.Eval("3*4");
+        var result = calculator.Eval("3*4");
         Assert.Equal(12, result);
     }
 
@@ -33,7 +33,7 @@ public class TestCalculator
     public void Eval_Division_Success()
     {
         Calculator calculator = new Calculator();
-        int result = calculator.Eval("10/5");
+        var result = calculator.Eval("10/5");
         Assert.Equal(2, result);
     }
 
@@ -55,7 +55,7 @@ public class TestCalculator
     public void Eval_OperatorPrecedence_Success()
     {
         Calculator calculator = new Calculator();
-        int result = calculator.Eval("2+3*4");
+        var result = calculator.Eval("2+3*4");
         Assert.Equal(14, result);
     }
 
@@ -63,7 +63,7 @@ public class TestCalculator
     public void Eval_Parentheses_Success()
     {
         Calculator calculator = new Calculator();
-        int result = calculator.Eval("(2+3)*4");
+        var result = calculator.Eval("(2+3)*4");
         Assert.Equal(20, result);
     }
 }

@@ -6,14 +6,14 @@ public class Calculator
 {
     private static readonly char[] Operators = { '+', '-', '*', '/' };
 
-    public int Eval(string expression)
+    public double Eval(string expression)
     {
         if (string.IsNullOrEmpty(expression))
         {
             throw new ArgumentException("式が空です。");
         }
 
-        int result = 0;
+        double result = 0;
         string[] tokens = Tokenize(expression);
         if (tokens.Length > 0)
         {

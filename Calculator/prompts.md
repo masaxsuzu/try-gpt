@@ -466,3 +466,96 @@ private void EvaluateTop(Stack<int> values, Stack<char> operators)
 
 修正後、再度テストを実行してください。InvalidOperationExceptionがスローされる問題は解消されるはずです。
 ```
+
+## Iteration #7
+
+```
+Q:
+10/4の結果が2になっています。2.5となるように修正してください。
+差分だけを教えください。
+
+A:
+以下は、修正箇所だけを示したコードです。
+
+private double Evaluate(string[] tokens)
+{
+    Stack<double> values = new Stack<double>();
+    Stack<char> operators = new Stack<char>();
+
+    for (int i = 0; i < tokens.Length; i++)
+    {
+        string token = tokens[i];
+
+        if (double.TryParse(token, out double value))
+        {
+            values.Push(value);
+        }
+        else if (Operators.Contains(token[0]))
+        {
+            while (operators.Count > 0 && Precedence(operators.Peek()) >= Precedence(token[0]))
+            {
+                EvaluateTop(values, operators);
+            }
+
+            operators.Push(token[0]);
+        }
+        else if (token == "(")
+        {
+            operators.Push('(');
+        }
+        else if (token == ")")
+        {
+            while (operators.Peek() != '(')
+            {
+                EvaluateTop(values, operators);
+            }
+
+            operators.Pop();
+        }
+    }
+
+    while (operators.Count > 0)
+    {
+        EvaluateTop(values, operators);
+    }
+
+    return values.Pop();
+}
+
+private void EvaluateTop(Stack<double> values, Stack<char> operators)
+{
+    if (values.Count < 2)
+    {
+        throw new ArgumentException("無効な式です。");
+    }
+
+    char op = operators.Pop();
+    double right = values.Pop();
+    double left = values.Pop();
+
+    switch (op)
+    {
+        case '+':
+            values.Push(left + right);
+            break;
+        case '-':
+            values.Push(left - right);
+            break;
+        case '*':
+            values.Push(left * right);
+            break;
+        case '/':
+            if (right == 0)
+            {
+                throw new DivideByZeroException();
+            }
+
+            values.Push(left / right);
+            break;
+        default:
+            throw new ArgumentException("無効な演算子です。");
+    }
+}
+
+Evaluateメソッドでは、int型の結果を返すのではなく、double型の結果を返すように変更しています。また、EvaluateTopメソッドでは、割り算を実行する際に、整数同士の除算による問題が発生しないように、double型の割り算を実行するように修正しています。
+```

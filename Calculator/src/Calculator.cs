@@ -64,16 +64,16 @@ public class Calculator
         return tokens.ToArray();
     }
 
-    private int Evaluate(string[] tokens)
+    private double Evaluate(string[] tokens)
     {
-        Stack<int> values = new Stack<int>();
+        Stack<double> values = new Stack<double>();
         Stack<char> operators = new Stack<char>();
 
         for (int i = 0; i < tokens.Length; i++)
         {
             string token = tokens[i];
 
-            if (int.TryParse(token, out int value))
+            if (double.TryParse(token, out double value))
             {
                 values.Push(value);
             }
@@ -124,7 +124,7 @@ public class Calculator
         }
     }
 
-    private void EvaluateTop(Stack<int> values, Stack<char> operators)
+    private void EvaluateTop(Stack<double> values, Stack<char> operators)
     {
         if (values.Count < 2)
         {
@@ -132,8 +132,8 @@ public class Calculator
         }
 
         char op = operators.Pop();
-        int right = values.Pop();
-        int left = values.Pop();
+        double right = values.Pop();
+        double left = values.Pop();
 
         switch (op)
         {

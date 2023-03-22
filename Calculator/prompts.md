@@ -91,3 +91,65 @@ Evalメソッドは、式が空である場合にArgumentExceptionをスロー�
 このように定義することで、Add、Subtract、Multiply、Divideの4つのメソッドを定義する必要がなく、Evalメソッドで与えられた数式を評価することができます。
 
 ```
+
+## Iteration #3
+```
+Q:
+CalculatorクラスのEvalメソッドに対する単体テストをxunitを使って記述してください。
+A:
+以下は、CalculatorクラスのEvalメソッドに対する単体テストの例です。xUnitを使用してテストを記述しています。
+
+using Xunit;
+
+public class CalculatorTest
+{
+    [Fact]
+    public void Eval_Addition_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("1+2");
+        Assert.Equal(3, result);
+    }
+
+    [Fact]
+    public void Eval_Subtraction_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("5-2");
+        Assert.Equal(3, result);
+    }
+
+    [Fact]
+    public void Eval_Multiplication_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("3*4");
+        Assert.Equal(12, result);
+    }
+
+    [Fact]
+    public void Eval_Division_Success()
+    {
+        Calculator calculator = new Calculator();
+        int result = calculator.Eval("10/5");
+        Assert.Equal(2, result);
+    }
+
+    [Fact]
+    public void Eval_EmptyExpression_ExceptionThrown()
+    {
+        Calculator calculator = new Calculator();
+        Assert.Throws<ArgumentException>(() => calculator.Eval(""));
+    }
+
+    [Fact]
+    public void Eval_InvalidExpression_ExceptionThrown()
+    {
+        Calculator calculator = new Calculator();
+        Assert.Throws<ArgumentException>(() => calculator.Eval("1+2+"));
+    }
+}
+
+このテストでは、Addition、Subtraction、Multiplication、Divisionの各演算が正常に実行されることを確認しています。また、空の式がEvalメソッドに渡された場合や、無効な式が渡された場合に例外がスローされることを確認しています。
+
+```

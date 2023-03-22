@@ -396,3 +396,73 @@ class Calculator
 
 この実装では、Tokenizeメソッドで式をトークンに分割し、Evaluateメソッドでトークンを評価して四...
 ```
+
+## Iteration #6
+
+```
+Q:
+TryGpt.Tests.Calculator.TestCalculator.Eval_InvalidExpression_ExceptionThrownが失敗しています。
+エラーは以下の通りです。
+[xUnit.net 00:00:00.43]     TryGpt.Tests.Calculator.TestCalculator.Eval_InvalidExpression_ExceptionThrown [FAIL]
+  Failed TryGpt.Tests.Calculator.TestCalculator.Eval_InvalidExpression_ExceptionThrown [8 ms]
+  Error Message:
+   Assert.Throws() Failure
+Expected: typeof(System.ArgumentException)
+Actual:   typeof(System.InvalidOperationException): Stack empty.
+---- System.InvalidOperationException : Stack empty.
+  Stack Trace:
+     at System.Collections.Generic.Stack`1.ThrowForEmptyStack()
+   at System.Collections.Generic.Stack`1.Pop()
+   at TryGpt.Calculator.EvaluateTop(Stack`1 values, Stack`1 operators) in /home/masaxsuzu/ws/try-gpt/Calculator/src/Calculator.cs:line 131
+   at TryGpt.Calculator.Evaluate(String[] tokens) in /home/masaxsuzu/ws/try-gpt/Calculator/src/Calculator.cs:line 106
+   at TryGpt.Calculator.Eval(String expression) in /home/masaxsuzu/ws/try-gpt/Calculator/src/Calculator.cs:line 20
+   at TryGpt.Tests.Calculator.TestCalculator.<>c__DisplayClass5_0.<Eval_InvalidExpression_ExceptionThrown>b__0() in /home/masaxsuzu/ws/try-gpt/Calculator/tests/TestCalculator.cs:line 51
+----- Inner Stack Trace -----
+   at System.Collections.Generic.Stack`1.ThrowForEmptyStack()
+   at System.Collections.Generic.Stack`1.Pop()
+   at TryGpt.Calculator.EvaluateTop(Stack`1 values, Stack`1 operators) in /home/masaxsuzu/ws/try-gpt/Calculator/src/Calculator.cs:line 131
+   at TryGpt.Calculator.Evaluate(String[] tokens) in /home/masaxsuzu/ws/try-gpt/Calculator/src/Calculator.cs:line 106
+   at TryGpt.Calculator.Eval(String expression) in /home/masaxsuzu/ws/try-gpt/Calculator/src/Calculator.cs:line 20
+   at TryGpt.Tests.Calculator.TestCalculator.<>c__DisplayClass5_0.<Eval_InvalidExpression_ExceptionThrown>b__0() in /home/masaxsuzu/ws/try-gpt/Calculator/tests/TestCalculator.cs:line 51
+A:
+このエラーメッセージを見ると、InvalidOperationExceptionがスローされています。この例外は、スタックが空の状態でPopメソッドが呼び出された場合にスローされるため、EvaluateTopメソッドのvalues.Pop()を実行する前にスタックが空でないかどうかを確認する必要があります。
+
+以下は、EvaluateTopメソッドを修正した例です。
+
+private void EvaluateTop(Stack<int> values, Stack<char> operators)
+{
+    if (values.Count < 2)
+    {
+        throw new ArgumentException("無効な式です。");
+    }
+
+    char op = operators.Pop();
+    int right = values.Pop();
+    int left = values.Pop();
+
+    switch (op)
+    {
+        case '+':
+            values.Push(left + right);
+            break;
+        case '-':
+            values.Push(left - right);
+            break;
+        case '*':
+            values.Push(left * right);
+            break;
+        case '/':
+            if (right == 0)
+            {
+                throw new DivideByZeroException();
+            }
+
+            values.Push(left / right);
+            break;
+        default:
+            throw new ArgumentException("無効な演算子です。");
+    }
+}
+
+修正後、再度テストを実行してください。InvalidOperationExceptionがスローされる問題は解消されるはずです。
+```

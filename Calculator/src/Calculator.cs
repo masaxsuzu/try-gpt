@@ -126,6 +126,11 @@ public class Calculator
 
     private void EvaluateTop(Stack<int> values, Stack<char> operators)
     {
+        if (values.Count < 2)
+        {
+            throw new ArgumentException("無効な式です。");
+        }
+
         char op = operators.Pop();
         int right = values.Pop();
         int left = values.Pop();

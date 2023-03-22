@@ -1,5 +1,6 @@
 namespace TryGpt.Tests.Calculator;
 
+using TryGpt;
 using Xunit;
 
 public class TestCalculator

@@ -37,6 +37,15 @@ public class TestCalculator
         Assert.Equal(2, result);
     }
 
+    [Theory]
+    [InlineData("10/4", 2.5)]
+    public void Eval_Division_ReturnsCorrectResult(string expression, double expected)
+    {
+        Calculator calculator = new Calculator();
+        double result = calculator.Eval(expression);
+        Assert.Equal(expected, result);
+    }
+
     [Fact]
     public void Eval_EmptyExpression_ExceptionThrown()
     {

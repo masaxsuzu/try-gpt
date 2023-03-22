@@ -559,3 +559,24 @@ private void EvaluateTop(Stack<double> values, Stack<char> operators)
 
 Evaluateメソッドでは、int型の結果を返すのではなく、double型の結果を返すように変更しています。また、EvaluateTopメソッドでは、割り算を実行する際に、整数同士の除算による問題が発生しないように、double型の割り算を実行するように修正しています。
 ```
+
+## Iteration #8
+
+```
+Q:
+10/4のテストケースを教えてください。
+差分だけを表示してください。
+A:
+以下は、修正後のTestCalculatorクラスに追加した、10/4のテストケースの差分です。
+
+[Theory]
+[InlineData("10/4", 2.5)]
+public void Eval_Division_ReturnsCorrectResult(string expression, double expected)
+{
+    Calculator calculator = new Calculator();
+    double result = calculator.Eval(expression);
+    Assert.Equal(expected, result);
+}
+
+このテストケースは、割り算を行う演算式"10/4"を評価し、期待される結果である2.5を返すかどうかを検証します。
+```

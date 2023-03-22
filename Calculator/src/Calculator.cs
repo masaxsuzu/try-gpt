@@ -61,6 +61,16 @@ public class Calculator
             tokens.Add(buffer.ToString());
         }
 
+        // 負数の処理
+        for (int i = 0; i < tokens.Count; i++)
+        {
+            if (tokens[i] == "-" && (i == 0 || Operators.Contains(tokens[i-1][0]) || tokens[i-1] == "("))
+            {
+                tokens[i] = "-" + tokens[i + 1];
+                tokens.RemoveAt(i + 1);
+            }
+        }
+
         return tokens.ToArray();
     }
 

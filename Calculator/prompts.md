@@ -729,3 +729,65 @@ private string[] Tokenize(string expression)
 
 修正点は、Char.IsDigitメソッドのみでなく、小数点を表す'.'にも対応するために条件文を if (Char.IsDigit(c) || c == '.') として追加しています。これにより、小数点を含む数値を正しくTokenizeすることができます。
 ```
+
+## Iteration #11
+
+```
+Q:
+-1*2をTokenizeした場合の期待値は ["-1", "*", "2"]です修正してください。
+A:
+修正後のTokenizeメソッドは以下の通りです。
+
+private string[] Tokenize(string expression)
+{
+    List<string> tokens = new List<string>();
+    StringBuilder buffer = new StringBuilder();
+
+    foreach (char c in expression)
+    {
+        if (Char.IsDigit(c) || c == '.')
+        {
+            buffer.Append(c);
+        }
+        else if (Operators.Contains(c))
+        {
+            if (buffer.Length > 0)
+            {
+                tokens.Add(buffer.ToString());
+                buffer.Clear();
+            }
+
+            tokens.Add(c.ToString());
+        }
+        else if (c == '(' || c == ')')
+        {
+            if (buffer.Length > 0)
+            {
+                tokens.Add(buffer.ToString());
+                buffer.Clear();
+            }
+
+            tokens.Add(c.ToString());
+        }
+    }
+
+    if (buffer.Length > 0)
+    {
+        tokens.Add(buffer.ToString());
+    }
+
+    // 負数の処理
+    for (int i = 0; i < tokens.Count; i++)
+    {
+        if (tokens[i] == "-" && (i == 0 || Operators.Contains(tokens[i-1][0]) || tokens[i-1] == "("))
+        {
+            tokens[i] = "-" + tokens[i + 1];
+            tokens.RemoveAt(i + 1);
+        }
+    }
+
+    return tokens.ToArray();
+}
+
+
+```

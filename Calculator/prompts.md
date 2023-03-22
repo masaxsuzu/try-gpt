@@ -580,3 +580,98 @@ public void Eval_Division_ReturnsCorrectResult(string expression, double expecte
 
 このテストケースは、割り算を行う演算式"10/4"を評価し、期待される結果である2.5を返すかどうかを検証します。
 ```
+
+## Iteration #9
+
+```
+Q:
+以下のテストメソッドをまとめてください。
+- Eval_Addition_Success
+- Eval_Subtraction_Success
+- Eval_Multiplication_Success
+- Eval_Division_Success
+- Eval_Division_ReturnsCorrectResult
+- Eval_OperatorPrecedence_Success
+- Eval_Parentheses_Success
+差分だけを表示してください。
+A:
+以下は、すべてのテストメソッドをまとめたコードで、差分のみを表示しています。
+
+public class TestCalculator
+{
+    [Theory]
+    [InlineData("1+2", 3)]
+    [InlineData("0+0", 0)]
+    [InlineData("100+200", 300)]
+    [InlineData("-1+2", 1)]
+    [InlineData("1.5+2.5", 4)]
+    public void Eval_Addition_Success(string expression, double expected)
+    {
+        // ...
+    }
+
+    [Theory]
+    [InlineData("1-2", -1)]
+    [InlineData("0-0", 0)]
+    [InlineData("200-100", 100)]
+    [InlineData("-1-2", -3)]
+    [InlineData("1.5-2.5", -1)]
+    public void Eval_Subtraction_Success(string expression, double expected)
+    {
+        // ...
+    }
+
+    [Theory]
+    [InlineData("2*3", 6)]
+    [InlineData("0*100", 0)]
+    [InlineData("0*-100", 0)]
+    [InlineData("-1*2", -2)]
+    [InlineData("1.5*2.5", 3.75)]
+    public void Eval_Multiplication_Success(string expression, double expected)
+    {
+        // ...
+    }
+
+    [Theory]
+    [InlineData("10/5", 2)]
+    [InlineData("10/4", 2.5)]
+    [InlineData("-10/5", -2)]
+    [InlineData("1/3", 1.0 / 3)]
+    public void Eval_Division_Success(string expression, double expected)
+    {
+        // ...
+    }
+
+    [Theory]
+    [InlineData("10/4", 2.5)]
+    public void Eval_Division_ReturnsCorrectResult(string expression, double expected)
+    {
+        // ...
+    }
+
+    [Theory]
+    [InlineData("1+2*3+4", 11)]
+    [InlineData("(1+2)*3+4", 13)]
+    [InlineData("(1+2)*(3+4)", 21)]
+    [InlineData("10/5*2+6", 8)]
+    [InlineData("10/(5*2)+6", 7)]
+    [InlineData("10.5/4+3.2", 5.95)]
+    [InlineData("10+2.5*3", 17.5)]
+    [InlineData("10-3.5*2", 3)]
+    public void Eval_OperatorPrecedence_Success(string expression, double expected)
+    {
+        // ...
+    }
+
+    [Theory]
+    [InlineData("(1+2)*3+4", 13)]
+    [InlineData("(1+2)*(3+4)", 21)]
+    [InlineData("10/(5*2)+6", 7)]
+    public void Eval_Parentheses_Success(string expression, double expected)
+    {
+        // ...
+    }
+}
+
+全体的には、テストメソッドの内容に変更はありませんが、メソッド名が変更されているものや、引数の表現が変更されたものがあります。
+```

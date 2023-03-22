@@ -69,9 +69,9 @@ public class TestCalculator
     [InlineData("1+2*3+4", 11)]
     [InlineData("(1+2)*3+4", 13)]
     [InlineData("(1+2)*(3+4)", 21)]
-    [InlineData("10/5*2+6", 8)]
+    [InlineData("10/5*2+6", 10)]
     [InlineData("10/(5*2)+6", 7)]
-    [InlineData("10.5/4+3.2", 5.95)]
+    [InlineData("10.5/4+3.2", 5.8250000000000002)]
     [InlineData("10+2.5*3", 17.5)]
     [InlineData("10-3.5*2", 3)]
     public void Eval_OperatorPrecedence_Success(string expression, double expected)

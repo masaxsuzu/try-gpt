@@ -28,8 +28,10 @@ public class Calculator
         List<string> tokens = new List<string>();
         StringBuilder buffer = new StringBuilder();
 
-        foreach (char c in expression)
+        for (int i = 0; i < expression.Length; i++)
         {
+            char c = expression[i];
+
             if (Char.IsDigit(c) || c == '.')
             {
                 buffer.Append(c);
@@ -42,7 +44,14 @@ public class Calculator
                     buffer.Clear();
                 }
 
-                tokens.Add(c.ToString());
+                if (c == '-' && (i == 0 || Operators.Contains(expression[i - 1])))
+                {
+                    buffer.Append(c);
+                }
+                else
+                {
+                    tokens.Add(c.ToString());
+                }
             }
             else if (c == '(' || c == ')')
             {
@@ -61,18 +70,9 @@ public class Calculator
             tokens.Add(buffer.ToString());
         }
 
-        // 負数の処理
-        for (int i = 0; i < tokens.Count; i++)
-        {
-            if (tokens[i] == "-" && (i == 0 || Operators.Contains(tokens[i-1][0]) || tokens[i-1] == "("))
-            {
-                tokens[i] = "-" + tokens[i + 1];
-                tokens.RemoveAt(i + 1);
-            }
-        }
-
         return tokens.ToArray();
     }
+
 
 
     private double Evaluate(string[] tokens)

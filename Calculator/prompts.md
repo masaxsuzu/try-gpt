@@ -791,3 +791,63 @@ private string[] Tokenize(string expression)
 
 
 ```
+
+## Iteration #12
+
+```
+Q:
+-1-2をTokenizeした場合の期待値は ["-1", "-", "2"]です修正してください。
+A:
+以下は修正されたTokenizeメソッドの例です。-1-2をTokenizeした場合、期待値は["-1", "-", "2"]です。
+
+private string[] Tokenize(string expression)
+{
+    List<string> tokens = new List<string>();
+    StringBuilder buffer = new StringBuilder();
+
+    for (int i = 0; i < expression.Length; i++)
+    {
+        char c = expression[i];
+
+        if (Char.IsDigit(c) || c == '.')
+        {
+            buffer.Append(c);
+        }
+        else if (Operators.Contains(c))
+        {
+            if (buffer.Length > 0)
+            {
+                tokens.Add(buffer.ToString());
+                buffer.Clear();
+            }
+
+            if (c == '-' && (i == 0 || Operators.Contains(expression[i - 1])))
+            {
+                buffer.Append(c);
+            }
+            else
+            {
+                tokens.Add(c.ToString());
+            }
+        }
+        else if (c == '(' || c == ')')
+        {
+            if (buffer.Length > 0)
+            {
+                tokens.Add(buffer.ToString());
+                buffer.Clear();
+            }
+
+            tokens.Add(c.ToString());
+        }
+    }
+
+    if (buffer.Length > 0)
+    {
+        tokens.Add(buffer.ToString());
+    }
+
+    return tokens.ToArray();
+}
+
+```
